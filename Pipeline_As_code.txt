@@ -1,0 +1,101 @@
+
+node() 
+{
+    stage('Git')
+    {
+        echo "Checkout from Github"
+    }
+    
+    stage('Code Audit')
+    {
+        parallel (
+            "JUnit" : { 
+                     
+                      },
+            "Sonar" : { 
+                      
+                      }
+                )
+    }
+    
+    stage('Build')
+    {
+      echo "Building war"
+      
+    }
+    stage('Upload Artifacts')
+    {
+        echo "Checkout from Github"
+    }
+    stage('Deploy_to_Dev')
+    {
+        echo "Deploying artifacts "
+    }
+    stage('Testing')
+    {
+        echo "Running Functional Tests"
+
+    }
+}
+
+-------------
+
+node() 
+{
+    stage('Git')
+    {
+        echo "Checkout from Github"
+    }
+    
+    stage('Code Audit')
+    {
+        parallel (
+            "JUnit" : { 
+                     
+                      },
+            "Sonar" : { 
+                      
+                      }
+                )
+    }
+    
+    stage('Build')
+    {
+      echo "Building war"
+      
+    }
+    stage('Upload Artifacts')
+    {
+        echo "Checkout from Github"
+    }
+    stage('Deploy_to_Dev')
+    {
+        echo "Deploying artifacts "
+    }
+    stage('Testing')
+    {
+        echo "Running Functional Tests"
+
+    }
+}
+
+stage('Approval')
+{
+    input message: 'Do you approve Deployment to prod?'
+    node()
+    {
+        echo "Approved"
+    }
+}
+
+node()
+{
+    stage('Deploy_to_QA')
+    {
+        echo "Deploying artifacts to QA"
+    }
+    stage('Deploy_to_Production')
+    {
+        echo "Deploying artifacts to Production"
+    }
+}
